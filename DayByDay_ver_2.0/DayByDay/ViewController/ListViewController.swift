@@ -131,6 +131,7 @@ extension ListViewController: UICollectionViewDelegate {
     let detailVC = DetailViewController()
     let item = self.appDelegate.memolist[indexPath.item]
     detailVC.savedData = item
+    detailVC.title = self.appDelegate.memolist[indexPath.item].title
     show(detailVC, sender: nil)
   }
   
@@ -163,9 +164,18 @@ extension ListViewController: CustomCollectionViewCellDelegate {
   
   func removeCell(_ sender: Int) {
     let data = self.appDelegate.memolist[sender]
-    if dao.delete(data.objectID!) {
-      self.appDelegate.memolist.remove(at: sender)
+    
+    let alertAction = UIAlertController(title: "정말 삭제하실 건가요?", message: "삭제 후에는 복구 할 수 없습니다.", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "삭제하기", style: .destructive) { (_) in
+      if self.dao.delete(data.objectID!) {
+        self.appDelegate.memolist.remove(at: sender)
+      }
+      self.collectionView.reloadData()
     }
-    collectionView.reloadData()
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+    alertAction.addAction(okAction)
+    alertAction.addAction(cancelAction)
+    present(alertAction, animated: true)
+    
   }
 }

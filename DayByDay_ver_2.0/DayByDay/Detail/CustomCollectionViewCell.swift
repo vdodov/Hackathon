@@ -13,7 +13,6 @@ protocol CustomCollectionViewCellDelegate: class {
 }
 
 class CustomCollectionViewCell: UICollectionViewCell {
-    
     static let identifier = "CustomCollectionViewCell"
     
     weak var delegate: CustomCollectionViewCellDelegate?

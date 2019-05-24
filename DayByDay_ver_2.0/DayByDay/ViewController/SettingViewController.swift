@@ -108,7 +108,7 @@ class SettingViewController: UIViewController {
       tf.placeholder = "내용을 입력하세요."
     }
     let okAction = UIAlertAction(title: "수정하기", style: .default) { (_) in
-      if let typingSomething = alert.textFields?[0].text {
+      if (alert.textFields?[0].text) != nil {
         self.dao.insert(self.data)
         
       }
