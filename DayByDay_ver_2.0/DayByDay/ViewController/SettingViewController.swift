@@ -12,6 +12,7 @@ class SettingViewController: UIViewController {
   
   lazy var dao = MemoDAO()
   let data = MemoData()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
   
   let topView = UIView()
   let userImageView = UIImageView()
@@ -32,9 +33,10 @@ class SettingViewController: UIViewController {
     configure()
   }
   
-  //    override func viewWillAppear(_ animated: Bool) {
-  //        super.viewWillAppear(animated)
-  //}
+      override func viewWillAppear(_ animated: Bool) {
+          self.appDelegate.memolist = self.dao.fetch()
+        
+  }
   
   
   func addSubview() {
@@ -95,6 +97,7 @@ class SettingViewController: UIViewController {
     
     tableView.dataSource = self
     tableView.delegate = self
+    
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
   }
   
@@ -103,13 +106,15 @@ class SettingViewController: UIViewController {
   }
   
   func alertAction() {
+    
     let alert = UIAlertController(title: "수정", message: "", preferredStyle: .alert)
     alert.addTextField { (tf) in
       tf.placeholder = "내용을 입력하세요."
+        tf.delegate = self
     }
     let okAction = UIAlertAction(title: "수정하기", style: .default) { (_) in
       if let typingSomething = alert.textFields?[0].text {
-        self.dao.insert(self.data)
+        self.userMessageLabel.text = typingSomething
         
       }
       print("수정하기")
@@ -118,9 +123,21 @@ class SettingViewController: UIViewController {
     
     alert.addAction(okAction)
     alert.addAction(cancelAction)
-    self.present(alert, animated: true)
+    self.present(alert, animated: true) {
+//        let listVC = ListViewController()
+//        listVC.userMessage.text = self.userMessageLabel.text
+//        self.data.userMessage = self.userMessageLabel.text
+//
+//        self.dao.insert(self.data)
+        self.userMessageLabel.text = self.data.userMessage
+        self.dao.insert(self.data)
+        print("save")
+    }
   }
   
+    func save() {
+        
+    }
   
   
   @objc func defaultButton(_ sender: UIButton) {
@@ -192,4 +209,24 @@ extension SettingViewController: UITableViewDelegate {
       break
     }
   }
+}
+
+extension SettingViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        print("nothing")
+//  천수
+//        listVC.userMessage.text = self.userMessageLabel.text
+//        self.data.userMessage = self.userMessageLabel.text
+//
+//        self.dao.insert(self.data)
+        
+        
+//        userMessageLabel.text = data.userMessage
+//        data.userMessage = textField.text
+//        self.dao.insert(data)
+//
+//        print("userMessage Save")
+//        print(dao)
+        return true
+    }
 }

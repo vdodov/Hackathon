@@ -76,10 +76,11 @@ class ListViewController: UIViewController {
   }
   
   private func configure() {
+    let settingVC = SettingViewController()
     topView.backgroundColor = .red
     userMessage.backgroundColor = .white
     userMessage.textColor = .black
-    userMessage.text = "Label"
+    userMessage.text = settingVC.userMessageLabel.text
     userMessage.textAlignment = .center
     
     collectionView.backgroundColor = .white
@@ -91,6 +92,8 @@ class ListViewController: UIViewController {
     
     collectionView.showsHorizontalScrollIndicator = false
     collectionView.isPagingEnabled = true
+    
+    userMessage.textColor = .black
     
     
   }

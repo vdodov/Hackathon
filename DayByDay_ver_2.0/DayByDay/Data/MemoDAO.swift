@@ -37,7 +37,7 @@ class MemoDAO {
                 // MemoMO 프로퍼티 값을 MemoData의 프로퍼티로 복사
                 data.title = record.title
                 data.contents = record.contents
-                data.registerDate = record.registerdate! as Date
+                data.registerDate = record.registerdate
                 data.objectID = record.objectID
                 data.userMessage = record.userMessage
                 
@@ -63,7 +63,7 @@ class MemoDAO {
         // MemoData로 부터 값을 복사
         object.title = data.title
         object.contents = data.contents
-        object.registerdate = data.registerDate!
+        object.registerdate = data.registerDate
         object.userMessage = data.userMessage
         
         if let image = data.image {
