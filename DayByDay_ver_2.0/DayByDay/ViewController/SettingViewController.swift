@@ -61,12 +61,12 @@ class SettingViewController: UIViewController {
     userImageView.translatesAutoresizingMaskIntoConstraints = false
     userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
     userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 5).isActive = true
-    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor, constant: -10).isActive = true
-    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
+    userImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    userImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     
     
     userMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-    userMessageLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant:   20).isActive = true
+    userMessageLabel.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor).isActive = true
     userMessageLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10).isActive = true
     userMessageLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
 //    userMessageLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -60).isActive = true
@@ -92,7 +92,9 @@ class SettingViewController: UIViewController {
     
     userImageView.layer.borderWidth = 1
     userImageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    userImageView.layer.cornerRadius = userImageView.frame.width / 2
+    userImageView.layer.cornerRadius = 50
+    userImageView.clipsToBounds = true
+    userImageView.image = UIImage(named: "user")
     
 //    userImageView.backgroundColor = .green
 //    let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap(_:)))
@@ -104,6 +106,8 @@ class SettingViewController: UIViewController {
     userMessageLabel.textAlignment = .center
     userMessageLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     userMessageLabel.layer.borderWidth = 1
+    userMessageLabel.layer.cornerRadius = 10
+    userMessageLabel.clipsToBounds = true
     
     userUpdateButton.setTitle("상태메시지 수정", for: .normal)
     userUpdateButton.addTarget(self, action: #selector(diduserUpdateButtonDidTap(_:)), for: .touchUpInside)
