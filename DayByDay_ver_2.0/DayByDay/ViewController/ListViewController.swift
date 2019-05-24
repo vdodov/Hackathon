@@ -14,7 +14,8 @@ class ListViewController: UIViewController {
   lazy var dao = MemoDAO()
   
   let topView = UIView()
-  let userMessage = UILabel()
+  let userImageView = UIImageView()
+  let userMessageLabel = UILabel()
   
   
   var collectionView: UICollectionView = {
@@ -41,7 +42,7 @@ class ListViewController: UIViewController {
     // 코어 데이터에 저장된 데이터를 가져온다
     self.appDelegate.memolist = self.dao.fetch()
     let state = UserDefaults.standard.object(forKey: "state")
-    userMessage.text = state as? String
+    userMessageLabel.text = state as? String
     self.collectionView.reloadData()
   }
   
@@ -50,7 +51,8 @@ class ListViewController: UIViewController {
     //    view.addSubview(subject)
     //    view.addSubview(registerDate)
     view.addSubview(topView)
-    topView.addSubview(userMessage)
+    topView.addSubview(userMessageLabel)
+    topView.addSubview(userImageView)
   }
   
   private func autoLayout() {
@@ -62,11 +64,20 @@ class ListViewController: UIViewController {
     topView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
     topView.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
     
-    userMessage.translatesAutoresizingMaskIntoConstraints = false
-    userMessage.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
-    userMessage.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 20).isActive = true
-    userMessage.widthAnchor.constraint(equalToConstant: 150).isActive = true
-    userMessage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    userImageView.translatesAutoresizingMaskIntoConstraints = false
+    userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
+    userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 5).isActive = true
+    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor, constant: -10).isActive = true
+    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
+    
+    
+    userMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+    userMessageLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant:   20).isActive = true
+    userMessageLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10).isActive = true
+    userMessageLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    //    userMessageLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -60).isActive = true
+    userMessageLabel.widthAnchor.constraint(equalTo: topView.widthAnchor, multiplier: 0.7).isActive = true
+    
     
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     collectionView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
@@ -78,11 +89,11 @@ class ListViewController: UIViewController {
   
   private func configure() {
     let settingVC = SettingViewController()
-    topView.backgroundColor = .red
-    userMessage.backgroundColor = .white
-    userMessage.textColor = .black
-    userMessage.text = settingVC.userMessageLabel.text
-    userMessage.textAlignment = .center
+    
+    userMessageLabel.backgroundColor = .white
+    userMessageLabel.textColor = .black
+    userMessageLabel.text = settingVC.userMessageLabel.text
+    userMessageLabel.textAlignment = .center
     
     collectionView.backgroundColor = .white
     
@@ -94,7 +105,16 @@ class ListViewController: UIViewController {
     collectionView.showsHorizontalScrollIndicator = false
     collectionView.isPagingEnabled = true
     
-    userMessage.textColor = .black
+    userImageView.layer.borderWidth = 1
+    userImageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    userImageView.layer.cornerRadius = userImageView.frame.width / 2
+    
+    
+    userMessageLabel.textColor = .black
+    userMessageLabel.backgroundColor = .white
+    userMessageLabel.textAlignment = .center
+    userMessageLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    userMessageLabel.layer.borderWidth = 1
     
     
   }

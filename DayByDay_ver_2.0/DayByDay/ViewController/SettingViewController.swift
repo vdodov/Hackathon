@@ -11,7 +11,7 @@ import UIKit
 class SettingViewController: UIViewController {
   
   let topView = UIView()
-//  let userImageView = UIImageView()
+  let userImageView = UIImageView()
   let userMessageLabel = UILabel()
   let userUpdateButton = UIButton(type: .system)
   
@@ -42,7 +42,7 @@ class SettingViewController: UIViewController {
     view.addSubview(topView)
     view.addSubview(tableView)
     
-//    topView.addSubview(userImageView)
+    topView.addSubview(userImageView)
     topView.addSubview(userMessageLabel)
     topView.addSubview(userUpdateButton)
     
@@ -58,24 +58,26 @@ class SettingViewController: UIViewController {
     topView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
     
     
-//    userImageView.translatesAutoresizingMaskIntoConstraints = false
-//    userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
-//    userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
-//    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor).isActive = true
-//    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
+    userImageView.translatesAutoresizingMaskIntoConstraints = false
+    userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
+    userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 5).isActive = true
+    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor, constant: -10).isActive = true
+    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
     
     
     userMessageLabel.translatesAutoresizingMaskIntoConstraints = false
     userMessageLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant:   20).isActive = true
-    userMessageLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor).isActive = true
-    userMessageLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -60).isActive = true
-    userMessageLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
+    userMessageLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10).isActive = true
+    userMessageLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//    userMessageLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -60).isActive = true
+    userMessageLabel.widthAnchor.constraint(equalTo: topView.widthAnchor, multiplier: 0.7).isActive = true
     
     userUpdateButton.translatesAutoresizingMaskIntoConstraints = false
     userUpdateButton.topAnchor.constraint(equalTo: userMessageLabel.bottomAnchor).isActive = true
-    userUpdateButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: 20).isActive = true
+    userUpdateButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10).isActive = true
     userUpdateButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    userUpdateButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    userUpdateButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    
     
     
     tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +90,10 @@ class SettingViewController: UIViewController {
   func configure() {
     topView.backgroundColor = .white
     
+    userImageView.layer.borderWidth = 1
+    userImageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    userImageView.layer.cornerRadius = userImageView.frame.width / 2
+    
 //    userImageView.backgroundColor = .green
 //    let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap(_:)))
 //    userImageView.isUserInteractionEnabled = true
@@ -99,7 +105,7 @@ class SettingViewController: UIViewController {
     userMessageLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     userMessageLabel.layer.borderWidth = 1
     
-    userUpdateButton.setTitle("수정", for: .normal)
+    userUpdateButton.setTitle("상태메시지 수정", for: .normal)
     userUpdateButton.addTarget(self, action: #selector(diduserUpdateButtonDidTap(_:)), for: .touchUpInside)
     
     tableView.dataSource = self
