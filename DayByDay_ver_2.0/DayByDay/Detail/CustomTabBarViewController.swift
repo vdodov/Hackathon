@@ -49,7 +49,10 @@ class CustomTabBarViewController: UITabBarController {
         thirdTab.tabBarItem = thridTabBarItem
         //        thirdTab.view.backgroundColor = .white
         
-        self.viewControllers = [firstTab, secondTab, thirdTab]
+        self.viewControllers = [
+          firstTab,
+          UINavigationController(rootViewController: secondTab),
+          thirdTab]
     }
 
 

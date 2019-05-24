@@ -186,6 +186,7 @@ class ViewController: UIViewController {
       scrollView.isHidden = true
       textView.isHidden = true
       imageView.isHidden = true
+      textView.resignFirstResponder()
       UIView.animate(withDuration: 1, animations: {
         self.writeButton.setTitle("입력하기", for: .normal)
         self.view.layoutIfNeeded()
@@ -298,8 +299,11 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  
+  
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true)
+  
   }
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

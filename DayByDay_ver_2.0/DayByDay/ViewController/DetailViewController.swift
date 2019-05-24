@@ -15,7 +15,7 @@ class DetailViewController: UIViewController {
     let contents = UITextView()
     let imageView = UIImageView()
     let registerDateLabel = UILabel()
-    let button = UIButton(type: .system)
+//    let button = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
     
     func addSubview() {
         view.addSubview(cardView)
-        view.addSubview(button)
+//        view.addSubview(button)
         cardView.addSubview(contents)
         cardView.addSubview(imageView)
         cardView.addSubview(registerDateLabel)
@@ -37,12 +37,12 @@ class DetailViewController: UIViewController {
     func autoLayout() {
         let guide = view.safeAreaLayoutGuide
         
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10).isActive = true
-        button.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10).isActive = true
+//        button.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20).isActive = true
+//        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+      
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         cardView.centerYAnchor.constraint(equalTo: guide.centerYAnchor).isActive = true
@@ -80,9 +80,9 @@ class DetailViewController: UIViewController {
         toolBarKeyboard.items = [buttonflexBar, buttonDoneBar]
         toolBarKeyboard.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         
-        button.setTitle("뒤로", for: .normal)
-        button.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
-        
+//        button.setTitle("뒤로", for: .normal)
+//        button.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
+      
         cardView.backgroundColor = .white
         cardView.layer.cornerRadius = 20
         cardView.layer.shadowColor = UIColor.black.cgColor
@@ -123,9 +123,9 @@ class DetailViewController: UIViewController {
         self.registerDateLabel.text = dateString
     }
     
-    @objc func didTapBackButton(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
+//    @objc func didTapBackButton(_ sender: UIButton) {
+//        dismiss(animated: true)
+//    }
     
     @objc func doneButtonClicked (_sender: Any) {
         self.view.endEditing(true)

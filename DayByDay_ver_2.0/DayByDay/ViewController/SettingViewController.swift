@@ -113,8 +113,11 @@ class SettingViewController: UIViewController {
         tf.delegate = self
     }
     let okAction = UIAlertAction(title: "수정하기", style: .default) { (_) in
+
       if let typingSomething = alert.textFields?[0].text {
         self.userMessageLabel.text = typingSomething
+
+      
         
       }
       print("수정하기")
