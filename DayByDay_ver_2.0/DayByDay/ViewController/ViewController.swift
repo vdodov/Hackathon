@@ -145,6 +145,7 @@ class ViewController: UIViewController {
       scrollView.isHidden = false
       textView.isHidden = false
       imageView.isHidden = false
+        clear()
       //            UIView.setAnimationsEnabled(false)
       writeButton.setTitle("기록하기", for: .normal)
       view.layoutIfNeeded()
@@ -228,6 +229,14 @@ class ViewController: UIViewController {
   private func saveSomeWords() {
     print("save")
     
+    guard self.textView.text?.isEmpty == false else {
+        let alert = UIAlertController(title: nil, message: "내용을 입력해주세요", preferredStyle:.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+        
+        return
+    }
+    
     // MemoData 객체를 생성, 데이터를 담는다
     let data = MemoData()
     
@@ -280,6 +289,11 @@ class ViewController: UIViewController {
       width: self.textView.frame.width,
       height: self.view.frame.maxY - self.imageView.frame.maxY - 15)
   }
+    
+    func clear() {
+        textView.text = nil
+        imageView.image = nil
+    }
   
 }
 
