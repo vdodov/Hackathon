@@ -40,7 +40,8 @@ class ListViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     // 코어 데이터에 저장된 데이터를 가져온다
     self.appDelegate.memolist = self.dao.fetch()
-    
+    let state = UserDefaults.standard.object(forKey: "state")
+    userMessage.text = state as? String
     self.collectionView.reloadData()
   }
   

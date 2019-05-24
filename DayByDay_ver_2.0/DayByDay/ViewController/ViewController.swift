@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         dateLabel.textColor = Theme.dateLabel
         mainLabel.textColor = Theme.mainLabel
         writeButton.backgroundColor = Theme.writeButton
+        writeButton.titleLabel?.textColor = Theme.buttonText
     }
   
   // MARK: - Setting Method
@@ -64,6 +65,7 @@ class ViewController: UIViewController {
     writeButton.backgroundColor = Theme.writeButton
     writeButton.layer.cornerRadius = 10
     writeButton.clipsToBounds = true
+    writeButton.titleLabel?.textColor = Theme.buttonText
     writeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     writeButton.addTarget(nil, action: #selector(writeButtonDidTap), for: .touchUpInside)
     

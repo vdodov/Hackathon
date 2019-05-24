@@ -10,12 +10,8 @@ import UIKit
 
 class SettingViewController: UIViewController {
   
-  lazy var dao = MemoDAO()
-  let data = MemoData()
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-  
   let topView = UIView()
-  let userImageView = UIImageView()
+//  let userImageView = UIImageView()
   let userMessageLabel = UILabel()
   let userUpdateButton = UIButton(type: .system)
   
@@ -34,8 +30,11 @@ class SettingViewController: UIViewController {
   }
   
       override func viewWillAppear(_ animated: Bool) {
-          self.appDelegate.memolist = self.dao.fetch()
+        let state = UserDefaults.standard.object(forKey: "state")
+        userMessageLabel.text = state as? String
         
+//        let image = UserDefaults.standard.object(forKey: "image")
+//        userImageView.image = image as? UIImage
   }
   
   
@@ -43,7 +42,7 @@ class SettingViewController: UIViewController {
     view.addSubview(topView)
     view.addSubview(tableView)
     
-    topView.addSubview(userImageView)
+//    topView.addSubview(userImageView)
     topView.addSubview(userMessageLabel)
     topView.addSubview(userUpdateButton)
     
@@ -59,22 +58,22 @@ class SettingViewController: UIViewController {
     topView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
     
     
-    userImageView.translatesAutoresizingMaskIntoConstraints = false
-    userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
-    userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
-    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor).isActive = true
-    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
+//    userImageView.translatesAutoresizingMaskIntoConstraints = false
+//    userImageView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 20).isActive = true
+//    userImageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
+//    userImageView.trailingAnchor.constraint(equalTo: userMessageLabel.leadingAnchor).isActive = true
+//    userImageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20).isActive = true
     
     
     userMessageLabel.translatesAutoresizingMaskIntoConstraints = false
     userMessageLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant:   20).isActive = true
     userMessageLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor).isActive = true
     userMessageLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -60).isActive = true
-    userMessageLabel.widthAnchor.constraint(equalTo: topView.widthAnchor, multiplier: 0.7).isActive = true
+    userMessageLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
     
     userUpdateButton.translatesAutoresizingMaskIntoConstraints = false
     userUpdateButton.topAnchor.constraint(equalTo: userMessageLabel.bottomAnchor).isActive = true
-    userUpdateButton.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor).isActive = true
+    userUpdateButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: 20).isActive = true
     userUpdateButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
     userUpdateButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     
@@ -87,10 +86,18 @@ class SettingViewController: UIViewController {
   }
   
   func configure() {
-    topView.backgroundColor = .yellow
+    topView.backgroundColor = .white
     
-    userImageView.backgroundColor = .green
-    userMessageLabel.backgroundColor = .red
+//    userImageView.backgroundColor = .green
+//    let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap(_:)))
+//    userImageView.isUserInteractionEnabled = true
+//    userImageView.addGestureRecognizer(imageTapGesture)
+    
+    
+    userMessageLabel.backgroundColor = .white
+    userMessageLabel.textAlignment = .center
+    userMessageLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    userMessageLabel.layer.borderWidth = 1
     
     userUpdateButton.setTitle("수정", for: .normal)
     userUpdateButton.addTarget(self, action: #selector(diduserUpdateButtonDidTap(_:)), for: .touchUpInside)
@@ -104,20 +111,27 @@ class SettingViewController: UIViewController {
   @objc func diduserUpdateButtonDidTap(_ sender: UIButton) {
     alertAction()
   }
+    
+//    @objc func imageViewDidTap(_ sender: UIImageView) {
+//        let picker = UIImagePickerController()
+//
+//        picker.delegate = self
+//        picker.allowsEditing = true
+//        present(picker, animated: false)
+//    }
   
   func alertAction() {
     
     let alert = UIAlertController(title: "수정", message: "", preferredStyle: .alert)
     alert.addTextField { (tf) in
       tf.placeholder = "내용을 입력하세요."
-        tf.delegate = self
+        
     }
     let okAction = UIAlertAction(title: "수정하기", style: .default) { (_) in
 
       if let typingSomething = alert.textFields?[0].text {
         self.userMessageLabel.text = typingSomething
-
-      
+        UserDefaults.standard.set(typingSomething, forKey: "state")
         
       }
       print("수정하기")
@@ -126,21 +140,8 @@ class SettingViewController: UIViewController {
     
     alert.addAction(okAction)
     alert.addAction(cancelAction)
-    self.present(alert, animated: true) {
-//        let listVC = ListViewController()
-//        listVC.userMessage.text = self.userMessageLabel.text
-//        self.data.userMessage = self.userMessageLabel.text
-//
-//        self.dao.insert(self.data)
-        self.userMessageLabel.text = self.data.userMessage
-        self.dao.insert(self.data)
-        print("save")
-    }
+    self.present(alert, animated: true)
   }
-  
-    func save() {
-        
-    }
   
   
   @objc func defaultButton(_ sender: UIButton) {
@@ -163,9 +164,7 @@ class SettingViewController: UIViewController {
     
     
     
-    //print(tabBarController?.viewControllers![1])
-    //print(tabBarController?.viewControllers![2])
-    //self.loadView()
+   
   }
 }
 
@@ -178,7 +177,7 @@ extension SettingViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return Theme.num
+    return themeName.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -198,38 +197,68 @@ extension SettingViewController: UITableViewDelegate {
       
       tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
       tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
     case 1:
       Theme.darkBlueTheme()
       
       tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
       tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
     case 2:
       Theme.pinkTheme()
       
       tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
       tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
+    case 3:
+        Theme.violetTheme()
+        
+        tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
+        tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
+    case 4:
+        Theme.greenTheme()
+        
+        tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
+        tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
+    case 5:
+        Theme.grayTheme()
+        
+        tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
+        tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
+    case 6:
+        Theme.yellowTheme()
+        
+        tabBarController?.tabBar.tintColor = Theme.tabBarBarTint
+        tabBarController?.tabBar.barTintColor = Theme.tabBarTint
+        tabBarController?.tabBar.unselectedItemTintColor = Theme.tabBarUnselectedTintColor
     default:
       break
     }
   }
 }
 
-extension SettingViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        print("nothing")
-//  천수
-//        listVC.userMessage.text = self.userMessageLabel.text
-//        self.data.userMessage = self.userMessageLabel.text
+//extension SettingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 //
-//        self.dao.insert(self.data)
-        
-        
-//        userMessageLabel.text = data.userMessage
-//        data.userMessage = textField.text
-//        self.dao.insert(data)
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true)
 //
-//        print("userMessage Save")
-//        print(dao)
-        return true
-    }
-}
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//
+//        let origianlImage = info[.originalImage] as! UIImage
+//        let editedImage = info[.editedImage] as? UIImage
+//        let selectedImage = editedImage ?? origianlImage
+//        self.userImageView.image = selectedImage
+//
+//
+//        UserDefaults.standard.set(selectedImage, forKey: "image")
+//
+//        picker.dismiss(animated: false)
+//    }
+//
+//}
+

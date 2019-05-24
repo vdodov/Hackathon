@@ -21,8 +21,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     var registerDate = UILabel()
     let view = UIView()
     let removeButton = UIButton()
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var dao = MemoDAO()
+//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//    lazy var dao = MemoDAO()
     
     
     override init(frame: CGRect) {
@@ -40,6 +40,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     func changeColor() {
         view.backgroundColor = Theme.cardView
+        registerDate.textColor = Theme.cardViewText
+        subject.textColor = Theme.cardViewText
     }
     
     func addSubview() {
